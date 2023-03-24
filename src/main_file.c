@@ -28,7 +28,7 @@
 
 int main(int argc, char** argv) {
     int id, NPROC, error, i, NPROC_OPENMP;
-    char *file, *path;
+    const char *file, *path;
     experiment_total *exptotal;
     result_solver result;
     function func;

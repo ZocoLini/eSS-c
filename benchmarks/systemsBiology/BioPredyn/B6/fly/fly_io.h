@@ -17,8 +17,8 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "../util/global.h"
-#include "../util/ioTools.h"
+#include "error.h"
+//#include "../util/ioTools.h"
 //#include "../util/distributions.h"
 #include "maternal.h"
 //#include "moves.h"

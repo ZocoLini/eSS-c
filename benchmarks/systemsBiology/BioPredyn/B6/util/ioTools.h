@@ -28,8 +28,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
-#include "global.h"
 #include "error.h"
+#include <global.h>
+
 
 /* A FUNCTION WHICH IS NEEDED BY ALL OTHER READING FUNCS *******************/
 

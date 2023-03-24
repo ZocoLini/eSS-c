@@ -108,7 +108,7 @@
 #include <string.h>
 #include <limits.h>
 
-#include <error.h>
+//#include <error.h>
 #include <solvers.h>
 #include <maternal.h>
 #include <zygotic.h>
@@ -131,6 +131,10 @@ double **derivv2;
 double **derivv3;
 double **derivv4;
 double **vdonne;
+
+void ( *d_deriv ) ( double *, double **, double, double *, int, SolverInput *, Input * );
+void ( *p_deriv ) ( double *, double, double *, int, SolverInput *, Input * );
+void ( *p_jacobn ) ( double, double *, double *, double **, int, SolverInput *, Input * );
 
 /* three macros used in various solvers below */
 

@@ -21,11 +21,10 @@
 #include <string.h>
 
 #include "score.h"              /* obviously */
-#include "integrate.h"          /* for blastoderm and EPSILON and stuff */
-#include "fly_io.h"             /* i/o of parameters and data */
-#include "solvers.h"            /* for compare() */
+#include "global.h"
 
-#include "ioTools.h"
+//extern int proc_id;
+//extern int debug;
 
 /* some major structs */
 
@@ -504,6 +503,7 @@ InitStepsize( double step, double acc, FILE * slog, char *infile ) {
  *          function                                                       
  *   NOTE:  both InitZygote and InitScoring have to be called first!       
  */
+
 void
 Score( Input * inp, ScoreOutput * out, int jacobian ) {
     //name of the output dir

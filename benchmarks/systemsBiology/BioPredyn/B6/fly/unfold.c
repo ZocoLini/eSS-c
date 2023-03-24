@@ -22,7 +22,7 @@
 #include <time.h>               /* for time calculation */
 #include <sys/resource.h>       /* for time calculation */
 
-#include <error.h>
+//#include <error.h>
 #include <integrate.h>
 #include <maternal.h>
 #include <solvers.h>

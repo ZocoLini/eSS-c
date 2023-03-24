@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <unistd.h>             /* getopt stuff */
 
-#include <error.h>
+//#include <error.h>
 //#include <moves.h>
 #include <random.h>
 #include "fly_io.h"

@@ -43,7 +43,7 @@
 #include <unistd.h>
 
 //#include <moves.h>              /* for tweak */
-#include <error.h>
+//#include <error.h>
 #include <maternal.h>           /* for defs */
 #include <score.h>              /* for limits */
 #include <zygotic.h>            /* for EqParms */

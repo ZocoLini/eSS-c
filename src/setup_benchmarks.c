@@ -15,6 +15,7 @@
 #include <output.h>
 #include <benchmark_functions_SystemBiology.h>
 #include <benchmark_functions_BBOB.h>
+#include <python_interface.h>
 #include <example.h>
 #ifdef MATLAB
 #include <examplematlab.h>
@@ -45,7 +46,7 @@ typedef void*(*function)(double*,void*);
  * benchmark.
  */
 function setup_benchmark(experiment_total *exp, int idp, int *first) {
-    const char *namealg, *custom, *noiseBBOB, *noiselessBBOB, *systemsBiology, *matlabproblem;
+    const char *namealg, *custom, *noiseBBOB, *noiselessBBOB, *systemsBiology, *matlabproblem, *pythonNLP;
     char *name;
     function func;
      
@@ -54,7 +55,8 @@ function setup_benchmark(experiment_total *exp, int idp, int *first) {
     noiselessBBOB="noiselessBBOB";
     noiseBBOB="noiseBBOB";
     matlabproblem="matlabproblem";
-    
+    pythonNLP = "pythonNLP";
+
     name = (char *) calloc(500,sizeof(char));
     namealg = getname(exp);
     
@@ -130,6 +132,31 @@ function setup_benchmark(experiment_total *exp, int idp, int *first) {
 #endif
     }
 #endif
+    // Python
+    else if (strcmp((*exp).test.bench.type, pythonNLP) == 0) {
+
+       logandtranslation_(exp);
+       name="python cost function NLP problem";
+       (*exp).test.VTR_default=(*exp).test.VTR;
+       (*exp).test.bench.openmp=0;
+
+
+       manage_options(4, exp->test.bench.current_bench, (*exp).methodScatterSearch->loptions->solver);
+
+       const char *name_file;
+       //sprintf(name_file, "problem%d", exp->test.bench.current_bench);
+       if ( exp->test.bench.current_bench == 1)       name_file = "P1_ForwardSimulation_VEPmodel_Sourcelevel";
+       if ( exp->test.bench.current_bench == 2)       name_file = "P2_ForwardSimulation_VEPmodel_Sensorlevel";
+       if ( exp->test.bench.current_bench == 3)       name_file = "P3_ForwardSimulation_VEPmodel_Sensorlevel_nopropagation";
+       if ( exp->test.bench.current_bench == 4)       name_file = "P4_ForwardSimulation_VEPmodel_stochastic_estimateTau_Sensorlevel";
+       const char *string2 = "cost_function";
+
+       init_python(name_file, string2, exp);
+       func = call_to_obj_function_python;
+
+       exp->execution.python_active = 1;
+
+    }
     else {
         perror(error10);
         exit(10);
@@ -184,6 +211,13 @@ void manage_options(int id, int i, const char* solver){
         if (strcmp(solver,"n2sol")==0) {
             perror(error11);
             exit(11);
+        }
+    }
+	
+	if (id==4){
+        if ((i<1)||(i>4)) {
+            perror(error14);
+            exit(14);
         }
     }
 }

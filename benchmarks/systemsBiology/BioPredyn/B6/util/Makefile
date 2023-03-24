@@ -1,5 +1,5 @@
 # gen_deviates
-GDOBJ = error.o mathLib.o ioTools.o #distributions.o random.o dSFMT.o dSFMT_str_state.o 
+GDOBJ = error.o mathLib.o ioTools.o global.o#distributions.o random.o dSFMT.o dSFMT_str_state.o 
 
 # header files
 
@@ -30,6 +30,9 @@ mathLib.o: $(HEADS) mathLib.h mathLib.c
 
 error.o: $(HEADS) error.c
 	$(CC) -L$(GSL)/lib  $(INCLUDES) $(CFLAGS) -c error.c -o error.o
+
+global.o: $(HEADS) global.c
+	$(CC) -L$(GSL)/lib  $(INCLUDES) $(CFLAGS) -c global.c -o global.o
 
 #lsa.o: $(LSA_HEADS) lsa.c
 #	$(CC) $(CFLAGS) -c lsa.c -o lsa.o

@@ -6,7 +6,7 @@
  * Created on June 17, 2013, 5:26 PM
  */
 
-#include "global.h"
+//#include "global.h"
 
 #ifndef _FLY_SA_H
 #define	_FLY_SA_H

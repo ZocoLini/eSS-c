@@ -30,7 +30,7 @@
 #include <string.h>
 #include <unistd.h>             /* for command line option stuff */
 
-#include "error.h"              /* error handling funcs */
+//#include "error.h"              /* error handling funcs */
 //#include "distributions.h"      /* DistP.variables and prototypes */
 #include "integrate.h"
 #include "maternal.h"           /* for olddivstyle and such */
@@ -166,8 +166,8 @@ static EqParms iparm;
 
 static Input inp;               //The whole input - this is static in order to not to read data from file at every loop
 
-void ( *pd ) ( double *, double, double *, int, SolverInput *, Input * );
-void ( *pj ) ( double, double *, double *, double **, int, SolverInput *, Input * );
+//void ( *pd ) ( double *, double, double *, int, SolverInput *, Input * );
+//void ( *pj ) ( double, double *, double *, double **, int, SolverInput *, Input * );
 
 
 

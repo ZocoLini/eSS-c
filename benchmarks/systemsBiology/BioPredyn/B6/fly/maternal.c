@@ -28,7 +28,7 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
-#include <error.h>              /* for error and linked list functions  */
+//#include <error.h>              /* for error and linked list functions  */
 
 #include "maternal.h"
 #include "integrate.h"          /* for HALF_EPSILON */
@@ -37,7 +37,9 @@
 
 #include "ioTools.h"
 
-
+double custom_gast;
+double maxconc;
+int olddivstyle;
 /*** MITOSIS SCHEDULE: hard-wired cell division tables *********************
  *                                                                         *
  * From Foe & Alberts, '83 (Table 1, TOTAL ELAPSED added by JR and JJ):    *

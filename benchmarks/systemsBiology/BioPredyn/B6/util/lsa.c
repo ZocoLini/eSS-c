@@ -62,7 +62,7 @@
 /*       ders below; lsa.c must remain truly problem independent           */
 
 #include <sa.h>
-#include <error.h>
+//#include <error.h>
 #include <random.h>
 #include <distributions.h>
 

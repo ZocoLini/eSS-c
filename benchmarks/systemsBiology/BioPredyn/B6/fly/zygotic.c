@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "error.h"              /* for error handling */
+//#include "error.h"              /* for error handling */
 #include "maternal.h"           /* need this for BArrPtr (for the Bicoid structure) */
 #include "solvers.h"            /* for p_deriv */
 #include "integrate.h"          /* for ExternalInputs */
@@ -62,6 +62,12 @@ static double *D;
 /* following arrays are used by DvdtOrig */
 double *vinput;                 /* vinput, bot2 and bot are used for */
 double *bot2, *bot;             /* storing intermediate stuff for vector */
+
+
+GFunc gofu;
+void ( *pd ) ( double *, double, double *, int, SolverInput *, Input * );
+void ( *pj ) ( double, double *, double *, double **, int, SolverInput *, Input * );
+void ( *dd ) ( double *, double **, double, double *, int, SolverInput *, Input * );
 
 /*** INITIALIZATION FUNCTIONS **********************************************/
 
@@ -2262,3 +2268,6 @@ Dvdt_diffusion( double *v, double t, double *vdot, int n, int MM, double *D, Inp
 
     }                           // else we skip diffusion
 }
+
+
+

@@ -20,7 +20,7 @@
 #include <string.h>
 #include <unistd.h>             /* for getopt */
 
-#include <error.h>
+//#include <error.h>
 #include <integrate.h>
 #include <maternal.h>
 #include <score.h>

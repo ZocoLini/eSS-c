@@ -1,45 +1,53 @@
 BUILDDIR=.
+
+ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+export ROOT_DIR
+
 LIBRARY=$(BUILDDIR)/lib
 AMIGO_PATH=$(LIBRARY)/libAMIGO
 
+PYTHON_INC=/opt/cesga/2020/software/Core/python/3.9.9/include/python3.9
 #############################################################################
 ## PARALLEL GCC/GFORTRAN - OPENMP
 #############################################################################
-#CC:=mpicc 
-##FC:=mpif90 
-#CLIBS+=  -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
-#CFLAGS+= -O3 -cpp -DGNU 
-#CPARALLEL+=-DOPENMP -DMPI2 -fopenmp -lmpi
-#FLIBS+=
-#FFLAGS+= -O3 -cpp -DGNU  
-#FPARALLEL+=-DOPENMP -DMPI2 -DGNU -fopenmp
+CC:=mpicc 
+FC:=mpif90 
+CLIBS+=  -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz 
+CFLAGS+= -O3 -cpp -DGNU -fPIC -no-pie 
+CPARALLEL+=-DOPENMP -DMPI2 -fopenmp -lmpi
+FLIBS+=
+FFLAGS+= -O3 -cpp -DGNU  -fallow-argument-mismatch -std=gnu
+FPARALLEL+=-DOPENMP -DMPI2 -DGNU -fopenmp
 
-#LIBS+= -L$(LIBRARY)/BLAS -lblas
-#INC+=  -I$(LIBRARY)/misqp/gnu
-#LIBS+= -L$(LIBRARY)/misqp/gnu
-#MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
+LIBS+= -L$(LIBRARY)/BLAS -lblas  -Dnullptr=0 -lpython3.9
+INC+=  -I$(LIBRARY)/misqp/gnu  -I$(PYTHON_INC)
+LIBS+= -L$(LIBRARY)/misqp/gnu
+MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so 
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/python/*.c)
+INC+=-I$(BUILDDIR)/benchmarks/python
 #############################################################################
 
 #############################################################################
 ## PARALLEL ICC/IFORT - INTELMPI
 ############################################################################
-CC:=   mpiicc 
-FC:=   mpiifort 
-AR:=   xiar#
-LD:=   xild#
-CLIBS+=  -cxxlib -lrt -lhdf5  -limf -lifcore 
-CLIBS+=  -lm -MMD -lz 
-CFLAGS+= -O3 -ipo -xHost -DINTEL 
-CPARALLEL+= -openmp -pthread -mt_mpi  -DOPENMP -DMPI2 
-FLIBS+=  -cxxlib 
-FFLAGS+= -O3 -ipo -xHost -fpp -DEXPORT   
-FPARALLEL+= -openmp -DOPENMP -DMPI2 -DINTEL -mt_mpi
-BLAS+= $(LIBRARY)/BLAS/libblas.a 
+#CC:=   mpiicc 
+#FC:=   mpiifort 
+#AR:=   xiar#
+#LD:=   xild#
+#CLIBS+=  -cxxlib -lrt -lhdf5  -limf -lifcore 
+#CLIBS+=  -lm -MMD -lz 
+#CFLAGS+= -O3 -ipo -xHost -DINTEL 
+#CPARALLEL+= -openmp -pthread -mt_mpi  -DOPENMP -DMPI2 
+#FLIBS+=  -cxxlib 
+#FFLAGS+= -O3 -ipo -xHost -fpp -DEXPORT   
+#FPARALLEL+= -openmp -DOPENMP -DMPI2 -DINTEL -mt_mpi -Dnullptr=0 -lpython3.9
+#BLAS+= $(LIBRARY)/BLAS/libblas.a 
 
-LIBS+= -L$(LIBRARY)/BLAS -lblas
-INC+=  -I$(LIBRARY)/misqp/intel
-LIBS+= -L$(LIBRARY)/misqp/intel
-MISQP=   $(LIBRARY)/misqp/intel/libmisqp.so
+
+#LIBS+= -L$(LIBRARY)/BLAS -lblas
+#INC+=  -I$(LIBRARY)/misqp/intel -I$(PYTHON_INC)
+#LIBS+= -L$(LIBRARY)/misqp/intel
+#MISQP=   $(LIBRARY)/misqp/intel/libmisqp.so
 #############################################################################
 
 #############################################################################
@@ -70,14 +78,18 @@ MISQP=   $(LIBRARY)/misqp/intel/libmisqp.so
 #CC:= gcc 
 #FC:= gfortran
 #CLIBS+= -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
-#CFLAGS+= -O3 -cpp -DGNU 
+#CFLAGS+= -O3 -cpp -DGNU  -fPIC -no-pie 
 #FLIBS+=
-#FFLAGS+= -O3 -cpp -DGNU   
-#LIBS+= -L$(LIBRARY)/BLAS -lblas
-#LIBS+= -L$(LIBRARY)/BLAS -lblas
+#FFLAGS+= -O3 -cpp -DGNU   -fallow-argument-mismatch -std=gnu 
 #INC+=  -I$(LIBRARY)/misqp/gnu
 #LIBS+= -L$(LIBRARY)/misqp/gnu
 #MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
+
+#LIBS+= -L$(LIBRARY)/BLAS -lblas  -Dnullptr=0 -lpython3.9
+#INC+=  -I$(LIBRARY)/misqp/gnu  -I$(PYTHON_INC)
+
+#SRC+=$(wildcard $(BUILDDIR)/benchmarks/python/*.c)
+#INC+=-I$(BUILDDIR)/benchmarks/python
 #############################################################################
 
 

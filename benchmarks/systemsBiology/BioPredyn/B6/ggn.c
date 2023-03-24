@@ -6,9 +6,7 @@
  * Created on Apr 30, 2014, 12:10 PM
  */
 
-#include "global.h"
-#include "mathLib.h"            /* Trunc function is in there */    
-#include "fly_sa.h"             /* MoveX function is in here */
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -52,7 +50,6 @@ double ggn(double x[], int size) {    //we need to pass also the number of param
     
     
     /* allocate memory for static file names */
-
     files.inputfile = ( char * ) calloc( MAX_RECORD, sizeof( char ) );
     files.statefile = ( char * ) calloc( MAX_RECORD, sizeof( char ) );
 
@@ -73,8 +70,8 @@ double ggn(double x[], int size) {    //we need to pass also the number of param
     }
            
     strcpy( files.inputfile, inputfile);
-    
     sprintf( files.statefile, "%s.state", files.inputfile );
+
     MoveX(x, mask, &out, &files, init, jacobian, 1); /* Solvers: 0 Rkck, 1 Krylov-Band */
     if (out.score < 0) {    /* maybe eliminate later and deal only with 1e38 */
         printf("OUT_OF_BOUND - setting score to 0 and penalty to 1e38\n");
@@ -82,7 +79,7 @@ double ggn(double x[], int size) {    //we need to pass also the number of param
         out.penalty = 1e38;
     }
     y = out.score + out.penalty; /*comment this to test without penalties*/
-    //y = out.score ;    
+    //y = out.score ;   
     init = 0;
     free(files.inputfile);
     free(files.statefile);
@@ -154,7 +151,7 @@ void returnbounds( double *UB, double *LB ) {
     int i;
     double score = ggn(par, n);
     returnlowerbound(LB);
-//    returnupperbound(UB);
+    returnupperbound(UB);
     for (i=0;i<37;i++) {
 	printf("%lf,", LB[i]);
     }
@@ -173,8 +170,8 @@ double fitnessfunctionB6(double *sol) {
      
       for (i=0;i<37;i++) {
           par[i] =  sol[i];  
-      }
-       
+     }
+
       score = ggn(par, n);
       return  score;
 }

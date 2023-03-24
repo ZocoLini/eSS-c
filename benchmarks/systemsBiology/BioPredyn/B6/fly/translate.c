@@ -39,13 +39,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error.h"
-#include "maternal.h"
-//#include "moves.h"
-#include "score.h"
-#include "zygotic.h"
-#include "ioTools.h"
-#include "fly_io.h"
+#include "translate.h"
 
 
 /* Translation: installing an array of pointer to params-to-be-tweaked */

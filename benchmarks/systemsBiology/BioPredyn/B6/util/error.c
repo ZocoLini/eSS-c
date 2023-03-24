@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <error.h>
+#include "error.h"
 
 const int MAX_ARGS = 25;        /* max number of error() and warning() arguments */
 

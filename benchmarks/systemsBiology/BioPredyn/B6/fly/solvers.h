@@ -30,10 +30,10 @@
 
 /*** GLOBAL VARIABLES ******************************************************/
 
-void ( *p_deriv ) ( double *, double, double *, int, SolverInput *, Input * );
-void ( *p_deriv_lite ) ( double *, double, double *, int, SolverInput *, Input * );
-void ( *d_deriv ) ( double *, double **, double, double *, int, SolverInput *, Input * );
-void ( *p_jacobn ) ( double, double *, double *, double **, int, SolverInput *, Input * );
+extern void ( *p_deriv ) ( double *, double, double *, int, SolverInput *, Input * );
+extern void ( *p_deriv_lite ) ( double *, double, double *, int, SolverInput *, Input * );
+extern void ( *d_deriv ) ( double *, double **, double, double *, int, SolverInput *, Input * );
+extern void ( *p_jacobn ) ( double, double *, double *, double **, int, SolverInput *, Input * );
 
 
 

@@ -180,7 +180,9 @@ int extract_element_test(xmlDocPtr doc, xmlNodePtr *root, experiment_testbed *te
     char const * LFSO;
     char const * idbench;
     char const * name_vtr;
+    char const * python_problem;
 
+    python_problem="python";
     testname = "test";
     noiseBBOB ="noiseBBOB";
     noiselessBBOB="noiselessBBOB";
@@ -710,7 +712,7 @@ int load_configuration_XML(char *docname, experiment_total *exptotal){
         }
         if ((strcmp((const char *) value, "ScatterSearch")==0) || (strcmp((const char *) value, "CeSS") == 0) 
                 ||  (strcmp((const char *) value, "saCeSS") == 0) ||  (strcmp((const char *) value, "aCeSS_dist") == 0) ||
-                (strcmp((const char *) value, "eSSm") == 0 )) {
+                (strcmp((const char *) value, "eSSm") == 0 ) ||  (strcmp((const char *) value, "coSHADE") == 0)) {
 
             exptotal->methodScatterSearch = (experiment_method_ScatterSearch *) malloc(sizeof (experiment_method_ScatterSearch));
             extract_element_method_ScatterSearch(doc, &root, exptotal->methodScatterSearch);                        
@@ -767,7 +769,19 @@ int load_configuration_XML(char *docname, experiment_total *exptotal){
                 perror(error33);
                 exit(33);                
                 #endif                
-            } else {
+            } 
+            else if (strcmp((const char *) value, "coSHADE") == 0){
+	        exptotal->methodScatterSearch->eSSversion = "eSSm";
+                #ifndef MPI2
+		perror(error32);
+		exit(32);
+		#endif
+		#ifndef OPENMP
+                perror(error33);
+                exit(33);
+                #endif
+            }
+            else {
                 perror(error12);
                 exit(12);        
             }

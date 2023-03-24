@@ -11,16 +11,12 @@
  *   contains error and warning functions                        
  *                                                               
  */
-
+#pragma once
 
 #ifndef ERROR_INCLUDED
 #define ERROR_INCLUDED
 
-/* following for structures & consts used thruout */
-#ifndef GLOBAL_INCLUDED
 #include <global.h>
-#endif
-
 
 
 /*** FUNCTION PROTOTYPES ***************************************************/

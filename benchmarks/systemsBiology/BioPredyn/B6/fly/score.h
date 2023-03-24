@@ -45,6 +45,10 @@
 
 #include "maternal.h"
 #include "fly_io.h"
+#include "integrate.h"          /* for blastoderm and EPSILON and stuff */
+#include "solvers.h"            /* for compare() */
+#include "ioTools.h"
+#include "global.h"
 
 extern const int SLEEP_LGTH;
 extern const int NPOINTS;

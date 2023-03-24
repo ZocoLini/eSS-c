@@ -27,12 +27,12 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_spline.h>
 
-#include "error.h"              /* for error handling functions */
-#include "maternal.h"           /* for GetBTimes to fetch bias info */
+//#include "error.h"              /* for error handling functions */
+//#include "maternal.h"           /* for GetBTimes to fetch bias info */
 #include "integrate.h"          /* obviously */
-#include "solvers.h"            /* for .slog filename */
-#include "zygotic.h"            /* still needed for mutators */
-#include "score.h"
+//#include "solvers.h"            /* for .slog filename */
+//#include "zygotic.h"            /* still needed for mutators */
+//#include "score.h"
 
 
 /**********************************************************************
@@ -62,7 +62,7 @@ const int PROPAGATE = 8;        /* and PROPAGATE propagates the equations   */
 const int MITOTATE = 16;        /* and MITOTATE carries forward the system by epsilon (to handle rounding errors from the solver   */
 
 
-
+void ( *ps ) ( double *, double *, double, double, double, double, int, FILE *, SolverInput * si, Input * );
 
 
 const char Jerry[] = "@(#) In Memoriam Jerome John Garcia, 8/1/42-8/9/95";

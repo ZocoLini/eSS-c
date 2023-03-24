@@ -52,12 +52,12 @@ typedef enum GFunc {
 
 /* The g(u) function we're using - by default gofu takes the 0th element of 
    the enum, in our case Sqrt */
-GFunc gofu;   
+extern GFunc gofu;   
 
 /* Derivative and Jacobian */
-void ( *pd ) ( double *, double, double *, int, SolverInput *, Input * );
-void ( *pj ) ( double, double *, double *, double **, int, SolverInput *, Input * );
-void ( *dd ) ( double *, double **, double, double *, int, SolverInput *, Input * );
+extern void ( *pd ) ( double *, double, double *, int, SolverInput *, Input * );
+extern void ( *pj ) ( double, double *, double *, double **, int, SolverInput *, Input * );
+extern void ( *dd ) ( double *, double **, double, double *, int, SolverInput *, Input * );
 
 /*** FUNCTION PROTOTYPES ***************************************************/
 

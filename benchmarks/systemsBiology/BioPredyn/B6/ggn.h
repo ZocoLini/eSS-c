@@ -13,6 +13,11 @@
 extern "C" {
 #endif
 
+#include "global.h"
+#include "mathLib.h"            /* Trunc function is in there */    
+#include "fly_sa.h"             /* MoveX function is in here */
+
+
 void returnbounds( double *, double * );
 void returnupperbound(double *);
 void returnlowerbound(double *);

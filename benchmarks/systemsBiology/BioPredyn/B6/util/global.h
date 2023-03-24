@@ -21,7 +21,7 @@
  *   if needed and is not included explicitly in .c files.       
  *                                                               
  */
-
+#pragma once
 
 
 #ifndef GLOBAL_INCLUDED
@@ -32,8 +32,8 @@
 
 /*** A global in global for debugging **************************************/
 
-int debug;                      /* debugging flag */
-int proc_id;
+extern int debug;                      /* debugging flag */
+extern int proc_id;
 
 /*** Constants *************************************************************/
 

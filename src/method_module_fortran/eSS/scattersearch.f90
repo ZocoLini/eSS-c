@@ -230,7 +230,7 @@ CONTAINS
             cputime1 = REAL(clock_stop-clock_start)/REAL(clock_rate)
             CALL initprintfile(exp1, F02, common_vars%parallel, common_vars%idp, cputime1, nfuneval,0)                
         endif           
-        
+       
         ! Algorithm main loop
         do while (fin .eq. 0)
             
@@ -274,18 +274,17 @@ CONTAINS
             CALL check_vector_in_hyper_bounds(exp1,opts1, v3, hyper_x_L, hyper_x_U )
             CALL generate_new_comb_matrix(exp1, new_comb, ppp, MaxSubSet, nrand, v1,v2,v3)
 
-                        
  
             CALL update_candidateset_with_new_comb( exp1,opts1, fitnessfunction,problem1,new_comb,candidateset,childset,&
                 candidate_update, members_update,MaxSubSet2,nrand,nconst,nfuneval,counter, index )
              
-        
+             
 !----------------------------------------------------------------------------------------------------------------------------------
 ! CHECK PARALLEL STOPPING CRITERIA           
 !----------------------------------------------------------------------------------------------------------------------------------              
                 
             CALL SYSTEM_CLOCK(count=clock_stop)
-            cputime1 = REAL(clock_stop-clock_start)/REAL(clock_rate)     
+            cputime1 = REAL(clock_stop-clock_start)/REAL(clock_rate)    
             CALL select_better_solution(results, opts1, refset, xbest, fbest, local_solver_var%use_bestx,nfuneval, &
                                                         cputime1, fin)              
             CALL printiteration(exp1, common_vars%iter, fbest(1), nfuneval, cputime1) 

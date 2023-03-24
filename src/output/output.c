@@ -59,8 +59,11 @@ void initprintfile_(void *exp1_, double *best, int *par, int *idp, double *curre
         if (*par == 0) {
             exp1[0].test.log_output = (char *) calloc(500, sizeof(char));
             exp1[0].test.result_output = (char *) calloc(500, sizeof(char));
-            sprintf(exp1[0].test.output_graph, "%s/convergence_id%d.csv", exp1[0].test.output_graph,*idp);
+	    char *temp = (char *) calloc(1000, sizeof(char));
+	    strcpy(temp, exp1[0].test.output_graph);
+            sprintf(exp1[0].test.output_graph, "%s/convergence_id%d.csv", temp,*idp);
             p3 = fopen( (const char *) exp1[0].test.output_graph, "a");
+	    free(temp);
         } else {
 
             if (exp1[0].execution.initpath == 1) {
@@ -70,15 +73,17 @@ void initprintfile_(void *exp1_, double *best, int *par, int *idp, double *curre
                 exp1[0].test.log_percentage = (char *) calloc(100, sizeof(char));
                 exp1[0].test.output_gant_log = (char *) calloc(100, sizeof(char));
                 exp1[0].test.result_output = (char *) calloc(500, sizeof(char));     
-                sprintf(exp1[0].test.result_output,     "%s/result", exp1[0].test.output_graph);
-                sprintf(exp1[0].test.log_output,     "%s/logfile_id%d", exp1[0].test.output_graph,*idp);
-                if (*idp == 0)  sprintf(exp1[0].test.log_percentage, "%s/percentage_id%d.csv", exp1[0].test.output_graph,*idp);
-                sprintf(exp1[0].test.output_gant_log,"%s/gantt_id%d.csv", exp1[0].test.output_graph,*idp);
+		char *temp = (char *) calloc(1000, sizeof(char));
+                strcpy(temp, exp1[0].test.output_graph);
+                sprintf(exp1[0].test.result_output,     "%s/result", temp);
+                sprintf(exp1[0].test.log_output,     "%s/logfile_id%d", temp,*idp);
+                if (*idp == 0)  sprintf(exp1[0].test.log_percentage, "%s/percentage_id%d.csv", temp,*idp);
+                sprintf(exp1[0].test.output_gant_log,"%s/gantt_id%d.csv", temp,*idp);
                 if (*master == 1) {
                     if (*idp != 0) 
-                        sprintf(exp1[0].test.output_graph,   "%s/convergence_id%d.csv", exp1[0].test.output_graph, *idp);  
+                        sprintf(exp1[0].test.output_graph,   "%s/convergence_id%d.csv", temp, *idp);  
                 } else {
-                    sprintf(exp1[0].test.output_graph,   "%s/convergence_id%d.csv", exp1[0].test.output_graph, *idp); 
+                    sprintf(exp1[0].test.output_graph,   "%s/convergence_id%d.csv", temp, *idp); 
                 }
             }
 
@@ -892,7 +897,7 @@ void printfinalsendslavelog_(void *exp1_, double *new, double *time ) {
  */
 void printiteration_(void *exp1_,
         int *k, double *best, long *evaluation_local, double *currenttime) {
-   
+
     experiment_total *exp1;
     output_struct *output;
     FILE *p3;
@@ -917,7 +922,6 @@ void printiteration_(void *exp1_,
     }
     
     
-
 
 }
 
@@ -1202,6 +1206,18 @@ char * concat_char(int *BUFFER, char *string_eval_total, char * string_eval) {
 }
 
 
+char* delete_substring(char* str, const char* substr) {
+    size_t len_str = strlen(str);
+    size_t len_substr = strlen(substr);
+    char* p = str;
+    while ((p = strstr(p, substr)) != NULL) {
+       memmove(p, p + len_substr, len_str - (p - str) - len_substr + 1);
+       len_str -= len_substr;
+   }
+   return str;
+}
+
+
 /**
  * @brief this function generates a convergence MATLAB graph with the files of 
  * all slaves.
@@ -1255,6 +1271,7 @@ void matlab_plot_file(experiment_total exp1,  char *string,  char *string2, cons
         
         p3 = fopen(string2, "r");
         if (p3 == NULL) exit(0);
+       
         
         mfile = ".m";
         path = (char *) malloc(SIZE_PATH*sizeof(char));
@@ -1262,6 +1279,8 @@ void matlab_plot_file(experiment_total exp1,  char *string,  char *string2, cons
 	sprintf(numberid,"%d",idp);
         //strcpy(path,string,strlen(string)-4-3-strlen(numberid));
         strcpy(path, string);
+        const char* substr = ".csv";
+	delete_substring(path, substr);
         strcat(path, mfile);
         p4 = fopen(path, "a");  
         if (p4 == NULL) exit(0);
@@ -1667,7 +1686,7 @@ void matlab_plot_file_gant(experiment_total exp1,  int init1, int end, char* str
             fprintf(p4, ";\n");
         }
      
-        cfree(path);
+        free(path);
         path = NULL;
         fclose(p3);
         fclose(p4);
@@ -1763,7 +1782,7 @@ void matlab_plot_file_porcentage(experiment_total exp1, int end, char* stringpat
         
         
      
-        cfree(path);
+        free(path);
         path = NULL;
         fclose(p3);
         fclose(p4);
@@ -2466,9 +2485,9 @@ void graphs_message(experiment_total *exp) {
     printf(" PERCENTAGE GRAPH CSV     : %s.csv\n\n\n", m3);
     }
 #endif    
-    cfree(m1);
-    cfree(m2);
-    cfree(m3);
+    free(m1);
+    free(m2);
+    free(m3);
 }
 
 

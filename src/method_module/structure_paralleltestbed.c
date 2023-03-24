@@ -116,7 +116,7 @@ int returnfailevals_(void *exp_){
 
 }
 
-int create_expetiment_struct(char *file, experiment_total *exptotal, int NPROC, int id,  char *path, int init){
+int create_expetiment_struct(const char *file, experiment_total *exptotal, int NPROC, int id,  const char *path, int init){
     int error, counter;
 	exptotal->test.bench.max_dom = NULL;
 	exptotal->test.bench.min_dom = NULL;
@@ -140,25 +140,26 @@ int create_expetiment_struct(char *file, experiment_total *exptotal, int NPROC, 
     exptotal->execution.idp = id;
     exptotal->execution.NPROC = NPROC; 
     exptotal->execution.file = (char *) calloc(300,sizeof(char));
-    strcpy(exptotal->execution.file,file);    
+    strcpy(exptotal->execution.file,file);   
+   
     exptotal->test.output_graph = (char *) calloc(1000, sizeof(char));
-    memcpy(exptotal->test.output_graph,path,sizeof(char)*1000);
+    strcpy(exptotal->test.output_graph,path);
     exptotal->test.output_path = (char *) calloc(1000, sizeof(char));
-
+    
      
     if (id == 0) {
       error = -1;
       counter = 0;
       if (init==1) {
         while (error == -1) {
-            memcpy(exptotal->test.output_path,exptotal->test.output_graph,sizeof(char)*1000);
+            strcpy(exptotal->test.output_path,exptotal->test.output_graph);
             error = mkdir( (const char *) exptotal->test.output_graph,0777);
             if ((error != -1)&&(error != 0)) {
                 exit(EXIT_FAILURE);
             } else if (error == -1){
                 counter++;
                 sprintf(exptotal->test.output_graph, "%s_%d", path, counter);
-	        memcpy(exptotal->test.output_path,exptotal->test.output_graph,sizeof(char)*1000);
+	        strcpy(exptotal->test.output_path,exptotal->test.output_graph);
             }
         }
       }

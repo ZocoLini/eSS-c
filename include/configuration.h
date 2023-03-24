@@ -26,7 +26,7 @@ extern "C" {
 #define ISIZE_SYSTBIO   1
 #define EPSILON_LOG 1e-6
     
-#define e expl(1.0) 
+#define e_definition expl(1.0) 
 
 #ifdef	__cplusplus
 }

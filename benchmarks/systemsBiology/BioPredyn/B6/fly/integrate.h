@@ -26,6 +26,11 @@
 #include "gsl/gsl_errno.h"
 #include "gsl/gsl_spline.h"
 
+#include "error.h"
+#include "solvers.h" 
+#include "maternal.h"           /* for GetBTimes to fetch bias info */
+#include "zygotic.h"            /* still needed for mutators */
+#include "score.h"
 #include "global.h"
 #include "maternal.h"
 
@@ -71,7 +76,7 @@ typedef struct TList {          /* Tlist is a linked list we use to set up */
 
 /*** NEW GLOBAL ************************************************************/
 
-void ( *ps ) ( double *, double *, double, double, double, double, int, FILE *, SolverInput * si, Input * );
+extern void ( *ps ) ( double *, double *, double, double, double, double, int, FILE *, SolverInput * si, Input * );
 /* this is the solver */
 
 

@@ -8,14 +8,14 @@ FLAGFLAG = -DFLAGS=optimized
 VERSFLAG = -DVERS=$(VERSION)
 VFLAGS = $(USRFLAG) $(HOSTFLAG) $(COMPFLAG) $(FLAGFLAG) $(VERSFLAG) 
 
-MAKEFILEPATH := $(abspath $(lastword $(MAKEFILE_LIST)))
-TRUNKDIR := $(patsubst %/,%,$(dir $(MAKEFILEPATH)))
+MAKEFILEPATH:=$(abspath $(lastword $(MAKEFILE_LIST)))
+TRUNKDIR:=$(patsubst %/,%,$(dir $(MAKEFILEPATH)))
 
 
 # set default architecture
 BITS = 64
 
-MPIFLAGS+= $(CCFLAGS) -DMPI
+MPIFLAGS+= $(CCFLAGS) -DMPI 
 DEBUGFLAGS+= $(DEBUGFLAGS) -DMPI
 PROFILEFLAGS+= $(PROFILEFLAGS) -DMPI
 
@@ -57,7 +57,7 @@ ifdef USEPROFILE
         CCFLAGS+= $(USEPROFFLAGS)
 endif
 
-INCLUDES+= -I$(GSL)/include -I. -I$(TRUNKDIR)/util -I./fly   -I$(ICC_PATH)/compiler/include -I$(SUNDIALS)/include 
+INCLUDES+= -I$(GSL)/include -I. -I$(TRUNKDIR)/util  -I$(ICC_PATH)/compiler/include -I$(SUNDIALS)/include -I$(TRUNKDIR)/fly 
 export INCLUDES
 CFLAGS+= $(CCFLAGS) $(INCLUDES) $(CLFLAGS)
 export CFLAGS

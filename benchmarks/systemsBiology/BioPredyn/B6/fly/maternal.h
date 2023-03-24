@@ -27,8 +27,10 @@
 
 #include <stdio.h>
 
-#include "global.h"
+//#include "global.h"
 //#include "distributions.h"
+
+extern const double old_divtimes[3];
 
 /*** CONSTANTS *************************************************************/
 
@@ -370,9 +372,9 @@ typedef struct Input {
 
 /*** GLOBALS ** ************************************************************/
 
-int olddivstyle;                /* flag: old or new division times? */
-double maxconc;                 /* max prot conc: 12 (old-), 255 (newstyle) */
-double custom_gast;             /* custom gastrulation time set by -S */
+extern int olddivstyle;                /* flag: old or new division times? */
+extern double maxconc;                 /* max prot conc: 12 (old-), 255 (newstyle) */
+extern double custom_gast;             /* custom gastrulation time set by -S */
 
 
 /*** FUNCTION PROTOTYPES ***************************************************/

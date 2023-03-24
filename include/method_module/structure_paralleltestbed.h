@@ -22,7 +22,8 @@ extern "C" {
     #include <dynamic_list.h>
     #include <mpi.h> 
 #endif    
-    
+
+#include <Python.h>
     typedef struct paramStruct ParamS;
     
     typedef struct {
@@ -251,6 +252,10 @@ extern "C" {
 	int dist_stopping_criteria;
 	long inner_ls_evals;
         int ep_matlab;
+        PyObject *pFunc;
+        PyObject *pModule;
+        const char *file_python_name;
+        int python_active;
     } execution_vars;
     
     
@@ -323,7 +328,7 @@ extern "C" {
     } output_function;
 
     
-int create_expetiment_struct(char *file, experiment_total *exptotal, int NPROC, int id,  char *path, int init);
+int create_expetiment_struct(const char *file, experiment_total *exptotal, int NPROC, int id,  const char *path, int init);
 
 void init_result_data(result_solver *, int);
     
