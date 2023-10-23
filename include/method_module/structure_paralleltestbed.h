@@ -23,7 +23,7 @@ extern "C" {
     #include <mpi.h> 
 #endif    
 
-#include <Python.h>
+//#include <Python.h>
     typedef struct paramStruct ParamS;
     
     typedef struct {
@@ -252,8 +252,8 @@ extern "C" {
 	int dist_stopping_criteria;
 	long inner_ls_evals;
         int ep_matlab;
-        PyObject *pFunc;
-        PyObject *pModule;
+        //PyObject *pFunc;
+        //PyObject *pModule;
         const char *file_python_name;
         int python_active;
     } execution_vars;

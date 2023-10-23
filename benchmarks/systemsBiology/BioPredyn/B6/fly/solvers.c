@@ -4365,9 +4365,9 @@ Krylov( double *vin, double *vout, double tin, double tout, double stephint, dou
         // otherwise don't look beyond gastrulation
         tstop = inp->zyg.times.gast_time;
     }
-    CVodeSetMaxStep(cvode_mem,(realtype)1000000);
     CVodeSetMaxStep(cvode_mem,(realtype)50);
-    CVodeSetMaxErrTestFails(cvode_mem, 1000);
+    //CVodeSetMaxStep(cvode_mem,(realtype)50); // 50
+    CVodeSetMaxErrTestFails(cvode_mem, 1000); //1000
 
     CVodeSetStopTime( cvode_mem, tstop );
     /* old code, works if networks would always be well-behaved */
@@ -4413,6 +4413,7 @@ InitBandSolver( realtype tzero, double stephint, double rel_tol, double abs_tol 
     /* Call CVodeSStolerances to specify the scalar relative tolerance
      * and scalar absolute tolerance
      */
+    //printf("TOL %.8lf  %.8lf\n", rel_tol, abs_tol);
     flag = CVodeSStolerances( cvode_mem, rel_tol, abs_tol );
     if( CheckFlag( &flag, "CVodeSStolerances", 1 ) ) {
         printf( "Error setting up tolerances\n" );

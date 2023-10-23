@@ -15,7 +15,6 @@
 #include <output.h>
 #include <benchmark_functions_SystemBiology.h>
 #include <benchmark_functions_BBOB.h>
-#include <python_interface.h>
 #include <example.h>
 #ifdef MATLAB
 #include <examplematlab.h>
@@ -133,30 +132,6 @@ function setup_benchmark(experiment_total *exp, int idp, int *first) {
     }
 #endif
     // Python
-    else if (strcmp((*exp).test.bench.type, pythonNLP) == 0) {
-
-       logandtranslation_(exp);
-       name="python cost function NLP problem";
-       (*exp).test.VTR_default=(*exp).test.VTR;
-       (*exp).test.bench.openmp=0;
-
-
-       manage_options(4, exp->test.bench.current_bench, (*exp).methodScatterSearch->loptions->solver);
-
-       const char *name_file;
-       //sprintf(name_file, "problem%d", exp->test.bench.current_bench);
-       if ( exp->test.bench.current_bench == 1)       name_file = "P1_ForwardSimulation_VEPmodel_Sourcelevel";
-       if ( exp->test.bench.current_bench == 2)       name_file = "P2_ForwardSimulation_VEPmodel_Sensorlevel";
-       if ( exp->test.bench.current_bench == 3)       name_file = "P3_ForwardSimulation_VEPmodel_Sensorlevel_nopropagation";
-       if ( exp->test.bench.current_bench == 4)       name_file = "P4_ForwardSimulation_VEPmodel_stochastic_estimateTau_Sensorlevel";
-       const char *string2 = "cost_function";
-
-       init_python(name_file, string2, exp);
-       func = call_to_obj_function_python;
-
-       exp->execution.python_active = 1;
-
-    }
     else {
         perror(error10);
         exit(10);

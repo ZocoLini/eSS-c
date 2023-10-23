@@ -32,7 +32,7 @@ double ggn(double x[], int size) {    //we need to pass also the number of param
 //    static char* inputfile =  "dm_hkgn53_wls_5_003";
     static int nParm;  // number of parameters of the problem - this corresponds to the number of ones in the mask.
 
-    masksize = sizeof(mask) / sizeof(int);
+    masksize = 56; //sizeof(mask) / sizeof(int);
     nParm=0;    
     for (i = 0; i<masksize; i++) {
         if (mask[i] == 1) {
@@ -73,13 +73,14 @@ double ggn(double x[], int size) {    //we need to pass also the number of param
     sprintf( files.statefile, "%s.state", files.inputfile );
 
     MoveX(x, mask, &out, &files, init, jacobian, 1); /* Solvers: 0 Rkck, 1 Krylov-Band */
+    //printf("SCORE %lf\n", out.score);
     if (out.score < 0) {    /* maybe eliminate later and deal only with 1e38 */
         printf("OUT_OF_BOUND - setting score to 0 and penalty to 1e38\n");
         out.score = 0;
         out.penalty = 1e38;
     }
-    y = out.score + out.penalty; /*comment this to test without penalties*/
-    //y = out.score ;   
+   // y = out.score + out.penalty; /*comment this to test without penalties*/
+    y = out.score ;   
     init = 0;
     free(files.inputfile);
     free(files.statefile);
@@ -167,11 +168,9 @@ double fitnessfunctionB6(double *sol) {
       double par[37];
       n=37;    
  
-     
       for (i=0;i<37;i++) {
           par[i] =  sol[i];  
-     }
-
+      }
       score = ggn(par, n);
       return  score;
 }
