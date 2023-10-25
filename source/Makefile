@@ -1,0 +1,112 @@
+BUILDDIR=.
+LIBRARY=$(BUILDDIR)/lib
+AMIGO_PATH=$(LIBRARY)/libAMIGO
+
+#############################################################################
+## PARALLEL GCC/GFORTRAN - OPENMP
+#############################################################################
+CC:=gcc
+FC:=gfortran 
+CLIBS+=  -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
+CFLAGS+= -O3 -cpp -DGNU -fPIC -no-pie 
+CPARALLEL+=-DOPENMP -DMPI2 -fopenmp -lmpi 
+FLIBS+=
+FFLAGS+= -O3 -cpp -DGNU  -fallow-argument-mismatch -std=gnu
+FPARALLEL+=-DOPENMP -DMPI2 -DGNU -fopenmp
+
+INC+=-I$(LIBRARY)/hdf5-1.8.12/include
+LIBS+=-L$(LIBRARY)/hdf5-1.8.12/lib  -lhdf5
+LIBS+= -L$(LIBRARY)/BLAS -lblas -Dnullptr=0 
+#############################################################################
+
+export AR
+export CC
+export FC
+export CLIBS
+export CFLAGS
+export FLIBS
+export FFLAGS
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B1/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B2/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B3/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B4/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B5/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/others/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/others/3-step_pathway/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/others/circadian/*.c)
+SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/others/Nfkb/*.c)
+#SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/MINLP/B5_int/*.c)
+#SRC+=$(wildcard $(BUILDDIR)/benchmarks/systemsBiology/MINLP/HEPG2a/*.c)
+SRC+=$(wildcard $(BUILDDIR)/src/*.c)
+
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_cvodes/*.c)
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_amigo/*.c)
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_de/*.c)
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_fullC/*.c)
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_julia/*.c)
+SRC+=$(wildcard $(AMIGO_PATH)/src/src_SRES/*.c)
+
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B1/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/fly/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/util/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B5/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B4/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B3/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B2/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/others/circadian/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/others/Nfkb/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/others/3-step_pathway/
+#INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/MINLP/HEPG2a/
+#INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/MINLP/B5_int/
+INC+=-I$(BUILDDIR)/benchmarks/systemsBiology/
+INC+=-I$(AMIGO_PATH)/include/include_cvodes/
+INC+=-I$(AMIGO_PATH)/include/include_amigo/
+INC+=-I$(AMIGO_PATH)/include/include_de/
+INC+=-I$(AMIGO_PATH)/include/include_SRES/
+INC+=-I$(BUILDDIR)/include/
+
+INC+=  -I$(LIBRARY)/gsl-1.14 -I$(LIBRARY)/gsl-1.14/include  -I$(LIBRARY)/gsl-1.14/include/gsl
+LIBS+= -L$(LIBRARY)/gsl-1.14/lib -lgsl
+LIBS+= -fPIC -DEXPORT
+LIBS+= -L$(AMIGO_PATH)/lib
+
+PROG := bin/libAMIGObench.a
+
+OBJFILES := $(SRC:.c=.o)
+DEPFILES := $(SRC:.c=.d)
+
+OBJB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/util/*.o
+OBJB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/fly/*.o
+OBJB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/*.o
+DEPB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/util/*.d
+DEPB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/fly/*.d
+DEPB6FILES+=$(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6/*.d
+
+
+
+all: BLAS B6 $(PROG)
+
+BLAS:
+	cd $(BUILDDIR)/lib/BLAS && $(MAKE) 
+
+B6:
+	cd $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6 && $(MAKE) deps
+	cd $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6 && $(MAKE)
+
+%.o: %.c
+	$(CC)  -c $< -o $@  $(LIBS) $(INC) $(CLIBS) $(CFLAGS) $(CPARALLEL)
+
+$(PROG) : $(OBJFILES)
+	$(AR) -r $(PROG) $(BLAS) $(OBJB6FILES) $(OBJFILES)  
+
+clean :
+	rm -f $(PROG) $(OBJFILES) $(DEPFILES)
+	rm -f $(OBJFORTRANFILES) $(DEPFORTRANFILES) $(MODFORTRANFILES)
+
+veryclean :
+	rm -f $(PROG) $(OBJFILES) $(DEPFILES)
+	cd $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6 && $(MAKE) clean
+	cd $(BUILDDIR)/benchmarks/systemsBiology/BioPredyn/B6 && $(MAKE) veryclean
+	cd $(BUILDDIR)/lib/BLAS && make clean

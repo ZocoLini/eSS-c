@@ -1,0 +1,21 @@
+lib/libAMIGO/src/src_cvodes/cvodes_bbdpre.o: \
+ lib/libAMIGO/src/src_cvodes/cvodes_bbdpre.c \
+ lib/libAMIGO/src/src_cvodes/cvodes_impl.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_nvector.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_types.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_config.h \
+ lib/libAMIGO/src/src_cvodes/cvodes_bbdpre_impl.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_bbdpre.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_band.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_direct.h \
+ lib/libAMIGO/src/src_cvodes/cvodes_spils_impl.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_spils.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_iterative.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_sptfqmr.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_sptfqmr.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_spbcgs.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_spbcgs.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_spgmr.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_spgmr.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_math.h

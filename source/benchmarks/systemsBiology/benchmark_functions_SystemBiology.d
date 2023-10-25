@@ -1,0 +1,32 @@
+benchmarks/systemsBiology/benchmark_functions_SystemBiology.o: \
+ benchmarks/systemsBiology/benchmark_functions_SystemBiology.c \
+ lib/libAMIGO/include/include_amigo/AMIGO_problem.h \
+ lib/libAMIGO/include/include_amigo/AMIGO_model.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_dense.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_direct.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_direct.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_types.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_config.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_nvector.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_dense.h \
+ lib/libAMIGO/include/include_cvodes/nvector/nvector_serial.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_math.h \
+ include/amigoRHS.h \
+ lib/libAMIGO/include/include_amigo/simulate_amigo_model.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes.h \
+ lib/libAMIGO/include/include_cvodes/cvodes/cvodes_lapack.h \
+ lib/libAMIGO/include/include_cvodes/sundials/sundials_lapack.h \
+ lib/libAMIGO/include/include_amigo/AMIGO_model_stats.h \
+ benchmarks/systemsBiology/BioPredyn/B6/ggn.h \
+ benchmarks/systemsBiology/BioPredyn/B6/util/global.h \
+ benchmarks/systemsBiology/BioPredyn/B6/util/mathLib.h \
+ benchmarks/systemsBiology/BioPredyn/B6/fly/fly_sa.h \
+ benchmarks/systemsBiology/others/circadian/amigoRHS_CIRCADIAN.h \
+ benchmarks/systemsBiology/others/3-step_pathway/amigoRHS_3step.h \
+ benchmarks/systemsBiology/others/Nfkb/amigoRHS_NFKB.h \
+ benchmarks/systemsBiology/BioPredyn/B1/amigoRHS_B1.h \
+ benchmarks/systemsBiology/BioPredyn/B2/amigoRHS_B2.h \
+ benchmarks/systemsBiology/BioPredyn/B3/amigoRHS_B3.h \
+ benchmarks/systemsBiology/BioPredyn/B4/amigoRHS_B4.h \
+ benchmarks/systemsBiology/BioPredyn/B5/amigoRHS_B5.h \
+ include/setup_benchmarks.h
