@@ -5,19 +5,19 @@ AMIGO_PATH=$(LIBRARY)/libAMIGO
 #############################################################################
 ## PARALLEL GCC/GFORTRAN - OPENMP
 #############################################################################
-CC:=mpicc 
-FC:=mpif90 
-CLIBS+=  -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
-CFLAGS+= -O3 -cpp -DGNU -fPIC -no-pie 
-CPARALLEL+=-DOPENMP -DMPI2 -fopenmp -lmpi 
-FLIBS+=
-FFLAGS+= -O3 -cpp -DGNU  -fallow-argument-mismatch -std=gnu
-FPARALLEL+=-DOPENMP -DMPI2 -DGNU -fopenmp
-
-LIBS+= -L$(LIBRARY)/BLAS -lblas -Dnullptr=0 
-INC+=  -I$(LIBRARY)/misqp/gnu
-LIBS+= -L$(LIBRARY)/misqp/gnu
-MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
+#CC:=mpicc 
+#FC:=mpif90 
+#CLIBS+=  -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
+#CFLAGS+= -O3 -cpp -DGNU -fPIC -no-pie 
+#CPARALLEL+=-DOPENMP -DMPI2 -fopenmp -lmpi 
+#FLIBS+=
+#FFLAGS+= -O3 -cpp -DGNU  -fallow-argument-mismatch -std=gnu
+#FPARALLEL+=-DOPENMP -DMPI2 -DGNU -fopenmp
+#
+#LIBS+= -L$(LIBRARY)/BLAS -lblas -Dnullptr=0 
+#INC+=  -I$(LIBRARY)/misqp/gnu
+#LIBS+= -L$(LIBRARY)/misqp/gnu
+#MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
 #############################################################################
 
 #############################################################################
@@ -72,7 +72,7 @@ MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
 #CLIBS+= -lstdc++ -lpthread -lrt -lgfortran  -cpp -MMD -lm -ldl -lz
 #CFLAGS+= -O3 -cpp -DGNU 
 #FLIBS+=
-#FFLAGS+= -O3 -cpp -DGNU   
+#FLAGS+= -O3 -cpp -DGNU   
 #LIBS+= -L$(LIBRARY)/BLAS -lblas
 #LIBS+= -L$(LIBRARY)/BLAS -lblas
 #INC+=  -I$(LIBRARY)/misqp/gnu
@@ -82,21 +82,21 @@ MISQP=   $(LIBRARY)/misqp/gnu/libmisqp.so
 
 
 #############################################################################
-## SEQUENTIAL ICC/IFORT 
+## SEQUENTIAL ICC/IFORT
 ##############################################################################
-#CC:=   icc
-#FC:=   ifort
+CC:=   icc
+FC:=   ifort
 #AR:=   xiar#
 #LD:=   xild#
-#CLIBS+=  -cxxlib -lrt -lhdf5  -lxml2 -limf -lifcore  -lm -MMD -lz 
-#CFLAGS+= -O3 -ipo -xHost -DINTEL
-#FLIBS+=  -cxxlib 
-#FFLAGS+= -O3 -ipo -xHost -fpp -DEXPORT -DINTEL 
-#BLAS+= $(LIBRARY)/BLAS/libblas.a  
-#LIBS+= -L$(LIBRARY)/BLAS -lblas
-#INC+=  -I$(LIBRARY)/misqp/intel
-#LIBS+= -L$(LIBRARY)/misqp/intel
-#MISQP=   $(LIBRARY)/misqp/intel/libmisqp.so
+CLIBS+=  -cxxlib -lrt -lhdf5  -lxml2 -limf -lifcore  -lm -MMD -lz
+CFLAGS+= -O3 -ipo -xHost -DINTEL
+FLIBS+=  -cxxlib
+FFLAGS+= -O3 -ipo -xHost -fpp -DEXPORT -DINTEL
+#BLAS+= $(LIBRARY)/BLAS/libblas.a
+LIBS+= -L$(LIBRARY)/BLAS -lblas
+INC+=  -I$(LIBRARY)/misqp/intel
+LIBS+= -L$(LIBRARY)/misqp/intel
+MISQP=   $(LIBRARY)/misqp/intel/libmisqp.so
 #############################################################################
 
 #############################################################################
@@ -221,6 +221,7 @@ LIBS+= -lAMIGO -fPIC -DEXPORT
 LIBS+= -L$(AMIGO_PATH)/lib
 
 PROG := bin/paralleltestbed
+LIBNAME := libess.a
 
 OBJFILES := $(SRC:.c=.o)
 DEPFILES := $(SRC:.c=.d)
@@ -238,10 +239,10 @@ DEPFORTRANFILES := $(SRCFORTRAN:.f90=.d)
 MODFORTRANFILES := $(SRCFORTRAN:.f90=.mod)
 
 OBJAMIGO := $(SRCAMIGO:.c=.o)
-DEPAMIGO := $(SRCAMIGO:.c=.d)	
+DEPAMIGO := $(SRCAMIGO:.c=.d)
 
 
-all: BLAS B6 N2SOL libAMIGO.a  $(OBJFORTRANFILES)  $(OBJCPPFILES) $(PROG)
+all: BLAS B6 N2SOL libAMIGO.a  $(OBJFORTRANFILES)  $(OBJCPPFILES) $(LIBNAME)
 
 BLAS:
 	cd $(BUILDDIR)/lib/BLAS && $(MAKE) 
@@ -262,9 +263,9 @@ libAMIGO.a :  $(OBJAMIGO)
 %.o: %.f90
 	$(FC) -c $< -o $@ $(LIBS) $(INC) $(FLIBS) $(FFLAGS) $(FPARALLEL)
 	@mv $(BUILDDIR)/*.mod $(BUILDDIR)/include/method_module_fortran/
-	
-$(PROG) : $(OBJFILES)
-	$(LINK.o) -o $(PROG) $(MISQP) $(INC) $(BLAS) $(OBJN2SOL) $(OBJB6FILES) $(OBJFILES) $(OBJFORTRANFILES) $(CFLAGS) $(LIBS) $(CLIBS) $(FLIBS) $(CPARALLEL) 
+
+$(LIBNAME) : $(OBJFILES)
+	$(AR) rcs $(LIBNAME) $(MISQP) $(INC) $(BLAS) $(OBJN2SOL) $(OBJB6FILES) $(OBJFILES) $(OBJFORTRANFILES) $(CFLAGS) $(LIBS) $(CLIBS) $(FLIBS) $(CPARALLEL) 
 
 clean :
 	rm -f $(PROG) $(OBJFILES) $(DEPFILES)
