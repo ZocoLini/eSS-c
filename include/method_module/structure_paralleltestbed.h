@@ -12,7 +12,7 @@
 extern "C" {
 #endif
     
-#include <bbobStructures.h>  
+#include <bbob/bbobStructures.h>
 #include <AMIGO_problem.h> 
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
