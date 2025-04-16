@@ -1,0 +1,31 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "/home/borja/projects/sacess-library-as-library/cmake-build-debug/sacess",
+	"dir-cur-src" : "/home/borja/projects/sacess-library-as-library/sacess",
+	"dir-top-bld" : "/home/borja/projects/sacess-library-as-library/cmake-build-debug",
+	"dir-top-src" : "/home/borja/projects/sacess-library-as-library",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"/home/borja/projects/sacess-library-as-library/sacess/sacess",
+		"/home/borja/projects/sacess-library-as-library/sacess/include",
+		"/home/borja/projects/sacess-library-as-library/sacess/benchmarks",
+		"/home/borja/projects/sacess-library-as-library/sacess/libAMIGO/include",
+		"/home/borja/projects/sacess-library-as-library/sacess/libAMIGO/include/include_cvodes",
+		"/home/borja/projects/sacess-library-as-library/sacess/include/method_module_fortran",
+		"/home/borja/projects/sacess-library-as-library/lib/gsl-1.14/include",
+		"/home/borja/projects/sacess-library-as-library/lib/libxml2/include",
+		"/home/borja/projects/sacess-library-as-library/lib/hdf5-1.8.12/include"
+	],
+	"language" : "Fortran",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/borja/projects/sacess-library-as-library/cmake-build-debug/sacess",
+	"submodule-ext" : ".smod",
+	"submodule-sep" : "@"
+}

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source "$HOME/intel/oneapi/setvars.sh"
-
 rm -rf build
 mkdir build
 

@@ -1,4 +1,4 @@
-#include <structure_paralleltestbed.h>
+#include <method_module/structure_paralleltestbed.h>
 
 void* examplefunction(double *x, void *data) {
     experiment_total *exp1;

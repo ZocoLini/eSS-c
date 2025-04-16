@@ -1,0 +1,5 @@
+/home/borja/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/borja/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/borja/projects/sacess-library-as-library -B /home/borja/projects/sacess-library-as-library/cmake-build-debug
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/borja/projects/sacess-library-as-library/cmake-build-debug
+CMake File API: java.util.concurrent.ExecutionException: com.jetbrains.cidr.cpp.cmake.model.api.CMakeApiException: /home/borja/projects/sacess-library-as-library/cmake-build-debug: target-sacess-Debug-a2bb5c79718ac84c1326.json: Cannot resolve compiler path 'icc'

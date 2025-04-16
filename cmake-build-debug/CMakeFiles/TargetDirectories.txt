@@ -1,0 +1,5 @@
+/home/borja/projects/sacess-library-as-library/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/borja/projects/sacess-library-as-library/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/borja/projects/sacess-library-as-library/cmake-build-debug/sacess/CMakeFiles/sacess.dir
+/home/borja/projects/sacess-library-as-library/cmake-build-debug/sacess/CMakeFiles/edit_cache.dir
+/home/borja/projects/sacess-library-as-library/cmake-build-debug/sacess/CMakeFiles/rebuild_cache.dir
